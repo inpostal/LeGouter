@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<Context>
+
+    <Resource name="jdbc/LeGouterDB" type="javax.sql.DataSource"
+        url="jdbc:mysql://localhost:3306/LeGouter?serverTimezone=Asia/Taipei"
+        username="root"
+        password="123456"
+        driverClassName="com.mysql.cj.jdbc.Driver"
+        maxActive="8"
+      	maxIdle="4"
+      	maxWait="5000"
+    />
+
+<!--     <Resource name="jdbc/hikari/LeGouterDB" type="javax.sql.DataSource" -->
+<!--         driverClassName="com.mysql.cj.jdbc.Driver" -->
+<!--         jdbcUrl="jdbc:mysql://localhost:3306/LeGouter" -->
+<!--         username="root" -->
+<!--         password="123456" -->
+<!--         factory="com.zaxxer.hikari.HikariJNDIFactory" -->
+<!--         minimumIdle="5" -->
+<!--         maximumPoolSize="10" -->
+<!--         connectionTimeout="30000" -->
+<!--     /> -->
+
+</Context>
