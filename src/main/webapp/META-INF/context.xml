@@ -7,7 +7,7 @@
         username="root"
         password="123456"
         driverClassName="com.mysql.cj.jdbc.Driver"
-        maxActive="8"
+        maxActive="20"
       	maxIdle="4"
       	maxWait="5000"
     />
