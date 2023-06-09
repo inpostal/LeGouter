@@ -46,4 +46,16 @@ public class MemberService {
 		}
 		return null;
 	}
+
+	public void editMemberData(MemberVO inputMemberData) {
+		MemberVO oldMemberVO = memberDAO.findByPrimaryKey(inputMemberData.getMemberId());
+		
+		oldMemberVO.setMemberName(inputMemberData.getMemberName());
+		oldMemberVO.setMemberPassword(inputMemberData.getMemberPassword());
+		oldMemberVO.setMemberGender(inputMemberData.getMemberGender());
+		oldMemberVO.setMemberPhone(inputMemberData.getMemberPhone());
+		oldMemberVO.setMemberAddress(inputMemberData.getMemberAddress());
+		
+		memberDAO.update(oldMemberVO);
+	}
 }

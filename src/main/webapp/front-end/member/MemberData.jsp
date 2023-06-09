@@ -15,7 +15,7 @@
 <body>
 
 	<%@ include file="/front-end/Header.jsp" %>
-
+	
     <section id="main-container">
         <aside id="left-side">
             <p id="left-side-title">會員專區</p>
@@ -94,7 +94,7 @@
                         <td>${memberRegisterDate}</td>
                     </tr>
                 </table>
-                <button type="text" id="update">修改會員資料</button>
+                <button type="text" id="update" onclick="window.location.href='<c:url value='/member/memberDataEdit'/>'">修改會員資料</button>
             </section>
         </section>
     </section>
