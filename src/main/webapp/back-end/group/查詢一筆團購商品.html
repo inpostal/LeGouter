@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>查詢一筆團購商品</title>
+</head>
+<body>
+<label>團購商品編號：<input type="text" id="productid" name="groupProductId" value="" required></label>
+<button type="button" id="btnSend" class="inpproduct">查詢</button>
+
+<div id="show">
+  
+</div>
+
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+
+<script>
+$(document).ready(function () {
+  $("#btnSend").on("click", function () {	 
+    //送到後端, 將員工資料新增到資料庫
+    showone();
+  });
+})
+//window.addEventListener("load", function () {
+//	})
+//----------------------------------------------------------	
+	function showone() {
+  //-----------打包資料(start)
+  let datas = {   
+    groupProductId: ($("#productid").val())   
+  }
+  console.log(datas); //測試有無資料，是物件還是字串。
+  //-----------打包資料(end)
+  //---------------------------------送出Ajax請求
+  $.ajax({
+    url: "/LeGouter/group/GroupByServlet",
+    method: "POST",
+    contentType: "application/json; charset=UTF-8",
+    data: JSON.stringify(datas),
+    dataType: "json",
+    beforeSend: function () {
+      console.log("發送請求之前確認:" + JSON.stringify(datas));
+    },
+    success: function (response) {
+        //alert("查詢成功~");
+        console.log("回來的資料:" + response);
+        console.log("資料的型態:" + typeof(response));
+ 
+        let text = `
+        <p>商品名稱:${response.groupProductName}</p>
+        <p>商品內容:${response.groupProductContent}</p>
+        <p>商品價格:${response.groupProductPrice}</p>`;
+        
+        $("#show").html(text);
+      },
+    error: function (xhr, status, erroe) {
+      console.log("status:" + status);
+      console.log("erroe:" + erroe);
+    }   
+  });
+}
+</script>
+</body>
+</html>

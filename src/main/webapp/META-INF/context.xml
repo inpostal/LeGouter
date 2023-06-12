@@ -5,7 +5,7 @@
     <Resource name="jdbc/LeGouterDB" type="javax.sql.DataSource"
         url="jdbc:mysql://localhost:3306/LeGouter?serverTimezone=Asia/Taipei"
         username="root"
-        password="123456"
+        password="java2023"
         driverClassName="com.mysql.cj.jdbc.Driver"
         maxActive="8"
       	maxIdle="4"
@@ -16,7 +16,7 @@
 <!--         driverClassName="com.mysql.cj.jdbc.Driver" -->
 <!--         jdbcUrl="jdbc:mysql://localhost:3306/LeGouter" -->
 <!--         username="root" -->
-<!--         password="123456" -->
+<!--         password="java2023" -->
 <!--         factory="com.zaxxer.hikari.HikariJNDIFactory" -->
 <!--         minimumIdle="5" -->
 <!--         maximumPoolSize="10" -->

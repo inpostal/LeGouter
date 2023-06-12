@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>新增團購商品</title>
+
+<style>
+.inpproduct {
+	display: block;
+	margin-top: 10px;
+}
+</style>
+</head>
+<body>
+
+	<div>
+		<label class="inpproduct">團購商品名稱：<input type="text" id="productname" name="groupproductname" value="" required></label>
+		<textarea class="inpproduct" id="textarea" name="groupproductcontent" cols="50" rows="8" maxlength="300" placeholder="輸入團購商品內容" required></textarea>
+		<label class="inpproduct">團購商品價格：<input type="number" id="productprice" name="groupproductprice" value="" required></label>
+		<label class="inpproduct">團購商品上架時間：<input type="text" id="productstardate" name="groupproductstardate" value="" placeholder="yyyy-mm-dd" required></label>
+		<input type="radio" class="inpproduct" id="productstatus" name="groupproductstatus" value="1">
+		<label class="inpproduct">上傳圖片</label> 
+		<input type="file"style="margin-top: 10px;"> 
+		<input type="file"style="margin-top: 10px;"> 
+		<input type="file"style="margin-top: 10px;"> 
+		<input type="file"style="margin-top: 10px;">
+		<button type="button" id="btnSend" class="inpproduct">新增</button>
+		<button type="reset" class="inpproduct">清除</button>
+	</div>
+
+	<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+	
+	<script>
+	window.addEventListener("load", function () {
+		  $("#btnSend").on("click", function () {
+			  console.log($("#productname").value);
+		    //送到後端, 將員工資料新增到資料庫
+		    addproduct();
+		  })
+		})
+//----------------------------------------------------------
+		function addproduct() {
+  //-----------打包資料(start)
+  let datas = {   
+    groupproductname: ($("#productname").val()),
+    groupproductcontent: ($("#textarea").val()),
+    groupproductprice:parseInt($("#productprice").val()),
+    groupproductstardate: ($("#productstardate").val()),
+    groupproductstatus: parseInt($("#productstatus").val()),   
+  }
+  console.log(datas.groupproductname); //測試有無資料，是物件還是字串。
+  //-----------打包資料(end)
+  //---------------------------------送出Ajax請求
+  $.ajax({
+    url: "/LeGouter/group/GroupProductServletAjax",
+    method: "POST",
+    contentType: "application/josn; charset=utf-8",
+    data: JSON.stringify(datas),
+    dataType: "json",
+    beforeSend: function () {
+      console.log("發送請求之前確認:" + JSON.stringify(datas));
+    },
+    success: function(response) {
+      if (response.indexOf("seccess" !== -1)) {
+        alert("新增成功~");
+        clearForm();
+      }
+    },
+    error: function(xhr, status, erroe) {
+      console.log("status:" + status);
+      console.log("erroe:" + erroe);
+    }   
+  });
+}
+	
+	function clearForm() {
+		  let inputs = document.getElementsByTagName("input");
+		  for (let i in inputs) {
+		    inputs[i].value = "";
+		  }
+		}
+	</script>
+</body>
+</html>
