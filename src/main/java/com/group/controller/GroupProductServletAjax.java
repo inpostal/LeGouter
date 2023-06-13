@@ -2,6 +2,7 @@ package com.group.controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,13 +22,14 @@ public class GroupProductServletAjax extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
-		res.setContentType("application/josn; charset=utf-8");
+		res.setContentType("html/text; charset=utf-8");
+		PrintWriter out = res.getWriter();
 		
 		try {
 			BufferedReader readjson = req.getReader();
 			String line = readjson.readLine();
-			GroupProductVO gvo = new Gson().fromJson(line, GroupProductVO.class);
-			
+			System.out.print("測試有無完整接收字串" + line);
+			GroupProductVO gvo = new Gson().fromJson(line, GroupProductVO.class);		
 			GroupProductDAO dao = new GroupProductDAO();
 			dao.insert(gvo);
 
@@ -35,5 +37,7 @@ public class GroupProductServletAjax extends HttpServlet {
 		    e.printStackTrace();
 		}
 		
+		int ok = 1234;
+		out.println(ok);
 	}
 }

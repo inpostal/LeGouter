@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>清單顯示所有團購商品</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+</head>
+
+<body>
+
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th style="width:120px;"><strong>團購商品編號</strong></th>
+                    <th style="width:180px;"><strong>名稱</strong></th>
+                    <th style="width:320px;"><strong>內容</strong></th>
+                    <th style="width:120px;"><strong>價格</strong></th>
+                    <th style="width:120px;"><strong>上架時間</strong></th>
+                    <th style="width:120px;"><strong>下架時間</strong></th>
+                    <th style="width:80px;"><strong>狀態</strong></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="showall">
+
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        window.addEventListener("load", function () {
+            showlist();
+        })
+        function showlist() {
+
+            $.ajax({
+                url: "/LeGouter/group/GroupAllServlet",
+                method: "GET",
+                success: function (response) {
+                    // console.log("回來的資料:" + response);
+                    let texts = "";                   
+                    for (let gvo in response) {
+                        // console.log(gvo);
+                        let text = `<tr>
+                                        <td><strong>${response[gvo].groupProductId}</strong></td>
+                                        <td>${response[gvo].groupProductName}</td>
+                                        <td>${response[gvo].groupProductContent}</td>
+                                        <td>${response[gvo].groupProductPrice}</td>
+                                        <td>${response[gvo].groupProductStardate}</td>
+                                        <td>${response[gvo].groupProductEnddate}</td>
+                                        <td>${response[gvo].groupProductStatus}</td>                
+                                        <td>
+                                            <div class="dropdown">
+                                                <button type="button" class="btn btn-success">編輯</button>
+                                            </div>
+                                        </td>
+                                    </tr>`;
+                        texts += text;
+                    }
+                    $("#showall").html(texts);
+                 
+                },
+                error: function (xhr, status, erroe) {
+
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>
