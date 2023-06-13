@@ -1,5 +1,7 @@
 package com.cart.model;
 
+import com.dessert.model.CartDetailVO;
+
 import java.util.List;
 
 /**
@@ -11,8 +13,12 @@ import java.util.List;
  */
 public interface ICartDetailDAO {
     void insert(CartDetailVO cartDetailVO);
+
     void update(CartDetailVO cartDetailVO);
+
     void delete(Integer dessertId, Integer memId);
+
     CartDetailVO findByPrimaryKey(Integer dessertId, Integer memId);
+
     List<CartDetailVO> getAll();
 }

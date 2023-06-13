@@ -1,11 +1,15 @@
 package com.cart.model;
 
-import jdk.dynalink.linker.support.Lookup;
+import com.dessert.model.CartDetailVO;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,6 +21,7 @@ import java.util.List;
  */
 public class CartDetailDAO implements ICartDetailDAO {
     private static DataSource ds = null;
+
     static {
         try {
             InitialContext context = new InitialContext();
@@ -45,13 +50,13 @@ public class CartDetailDAO implements ICartDetailDAO {
     @Override
     public CartDetailVO findByPrimaryKey(Integer dessertId, Integer memId) {
         String sql = "SELECT * FROM cart_detail WHERE DESSERT_ID = ? AND MEM_ID = ?";
-        try ( Connection connection = ds.getConnection();
-              PreparedStatement statement = connection.prepareStatement(sql);){
+        try (Connection connection = ds.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql);) {
 
             statement.setInt(1, dessertId);
             statement.setInt(2, memId);
             ResultSet rs = statement.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 CartDetailVO cartDetailVO = new CartDetailVO();
                 cartDetailVO.setDessertId(rs.getInt("dessert_Id"));
                 cartDetailVO.setMemId(rs.getInt("mem_Id"));
@@ -60,13 +65,35 @@ public class CartDetailDAO implements ICartDetailDAO {
             }
 
         } catch (SQLException e) {
-           e.printStackTrace();
+            e.printStackTrace();
         }
         return null;
     }
 
-    @Override
+
     public List<CartDetailVO> getAll() {
+        String sql = "SELECT * FROM cart_detail";
+
+        try (Connection connection = ds.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql);) {
+            List<CartDetailVO> list = new ArrayList<>();
+            ResultSet rs = statement.executeQuery();
+
+
+            while (rs.next()) {
+                CartDetailVO cartDetailVO = new CartDetailVO();
+                cartDetailVO.setDessertId(rs.getInt("dessert_Id"));
+                cartDetailVO.setMemId(rs.getInt("mem_Id"));
+                cartDetailVO.setCartDessertAmount(rs.getInt("CART_DESSERT_AMOUNT"));
+                list.add(cartDetailVO);
+            }
+            return list;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
+
     }
+
+    
 }

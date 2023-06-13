@@ -1,7 +1,7 @@
 package com.cart.controller;
 
 import com.cart.model.CartDetailDAO;
-import com.cart.model.CartDetailVO;
+import com.dessert.model.CartDetailVO;
 import com.google.gson.Gson;
 
 import javax.servlet.ServletException;
@@ -49,6 +49,34 @@ public class CartDetailByIDServlet extends HttpServlet {
 
 
 //        writer.print(cartDetailVO);
+
+//        req.setCharacterEncoding("UTF-8");
+//        resp.setContentType("application/json; charset=UTF-8");
+//
+//        System.out.println("Hi");
+//
+//        // 前端給的json string
+//        BufferedReader reader = req.getReader();
+//        // readline整個讀起來
+//        String jsonString = reader.readLine();
+//
+//
+//        // 要用VO把資料包裝起來
+//        Gson gson = new Gson();
+//        // 可以把jsonString轉成物件
+//        System.out.println(jsonString);
+//        EmpVO vo = gson.fromJson(jsonString, EmpVO.class);
+//
+//        Integer empId = vo.getEmpId();
+//        System.out.println(empId);
+//
+//        EmpDAO dao = new EmpDAO();
+//        EmpVO voInDB = dao.findByPrimaryKey(empId);
+//
+//
+//        String json = gson.toJson(voInDB);
+//        PrintWriter writer = resp.getWriter();
+//        writer.println(json);
 
     }
 }

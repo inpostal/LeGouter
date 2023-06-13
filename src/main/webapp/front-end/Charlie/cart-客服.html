@@ -688,35 +688,82 @@
     }
 </script>
 
-<script src="js/jquery-3.2.1.min.js"></script>
+<!--<script src="js/jquery-3.2.1.min.js"></script>-->
 <script>
 
+    // $(document).ready(function () {
+    //     $.ajax({
+    //         url: '/LeGouter/Cart/Detail',  // 請求的網址
+    //         type: 'POST',
+    //         contentType: 'application/json',
+    //         data: JSON.stringify({
+    //             dessertId: 1,
+    //             memId: 1
+    //         }),
+    //         success: function (res) {
+    //             console.log(res);
+    //             console.log(typeof (res));
+    //             console.log(res.dessertId);
+    //             console.log(res.memId);
+    //             console.log(res.cartDessertAmount);
+    //             let html = `<tr>
+    //                         <td class="pro-thumbnail"><a href="#"><img class="img-fluid"
+    //                                                                    src="assets/images/dessert-pic/chocolate cake.jpg"
+    //                                                                    alt="Product"/></a>
+    //                         </td>
+    //                         <td class="pro-title"><a href="#">${res.dessertId}</a></td>
+    //                         <td class="pro-price"><span>$295.00</span></td>
+    //                         <td class="pro-quantity">
+    //                             <div class="quantity">
+    //                                 <div class="cart-plus-minus">
+    //                                     <input class="cart-plus-minus-box" value="${res.cartDessertAmount}" type="text">
+    //                                     <div class="dec qtybutton">-</div>
+    //                                     <div class="inc qtybutton">+</div>
+    //                                     <div class="dec qtybutton"><i class="fa fa-minus"></i></div>
+    //                                     <div class="inc qtybutton"><i class="fa fa-plus"></i></div>
+    //                                 </div>
+    //                             </div>
+    //                         </td>
+    //                         <td class="pro-subtotal"><span>$295.00</span></td>
+    //                         <td class="pro-remove"><a href="#" onclick="removeProduct(event)"><i
+    //                                 class="ion-trash-b"></i></a></td>
+    //                     </tr>`;
+    //
+    //             $("#cart-detail-list").html(html);
+    //         },
+    //         error: function (xhr, textStatus, errorThrown) {
+    //             console.error(xhr)
+    //         }
+    //
+    //     });
+    // });
     $(document).ready(function () {
         $.ajax({
-            url: '/LeGouter/Cart/Detail',  // 請求的網址
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify({
-                dessertId: 1,
-                memId: 1
-            }),
+            url: '/LeGouter/Cart/GetAll',//登陸的網址
+            type: 'GET',//請求的方式
             success: function (res) {
                 console.log(res);
-                console.log(typeof (res));
-                console.log(res.dessertId);
-                console.log(res.memId);
-                console.log(res.cartDessertAmount);
-                let html = `<tr>
+                let th_html = `  <tr>
+                <th className="pro-thumbnail">甜點圖示</th>
+                <th className="pro-title">甜點名稱</th>
+                <th className="pro-price">單價</th>
+                <th className="pro-quantity">數量</th>
+                <th className="pro-subtotal">小計</th>
+                <th className="pro-remove">移除</th>
+            </tr>`;
+                console.log(th_html);
+                for (let e in res) {
+                    let td_html = `<tr>
                             <td class="pro-thumbnail"><a href="#"><img class="img-fluid"
                                                                        src="assets/images/dessert-pic/chocolate cake.jpg"
                                                                        alt="Product"/></a>
                             </td>
-                            <td class="pro-title"><a href="#">${res.dessertId}</a></td>
+                            <td class="pro-title"><a href="#">${res[e].dessertId}</a></td>
                             <td class="pro-price"><span>$295.00</span></td>
                             <td class="pro-quantity">
                                 <div class="quantity">
                                     <div class="cart-plus-minus">
-                                        <input class="cart-plus-minus-box" value="${res.cartDessertAmount}" type="text">
+                                        <input class="cart-plus-minus-box" value="${res[e].cartDessertAmount}" type="text">
                                         <div class="dec qtybutton">-</div>
                                         <div class="inc qtybutton">+</div>
                                         <div class="dec qtybutton"><i class="fa fa-minus"></i></div>
@@ -728,8 +775,9 @@
                             <td class="pro-remove"><a href="#" onclick="removeProduct(event)"><i
                                     class="ion-trash-b"></i></a></td>
                         </tr>`;
-
-                $("#cart-detail-list").html(html);
+                    th_html += td_html;
+                }
+                $("#cart-detail-list").html(th_html);
             },
             error: function (xhr, textStatus, errorThrown) {
                 console.error(xhr)

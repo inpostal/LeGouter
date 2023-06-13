@@ -1,4 +1,4 @@
-import com.cart.model.CartDetailVO;
+import com.dessert.model.CartDetailVO;
 
 /**
  * ClassName: test
@@ -9,7 +9,7 @@ import com.cart.model.CartDetailVO;
  */
 public class test {
     public static void main(String[] args) {
-       CartDetailVO cartDetailVO = new CartDetailVO();
+        CartDetailVO cartDetailVO = new CartDetailVO();
         System.out.println(cartDetailVO);
     }
 }
